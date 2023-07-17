@@ -16,10 +16,10 @@ public class MainListTest {
         float weight;
         int index;
         Material crispyFlour = new CrispyFlour(1, "bột sắn", LocalDate.of(2023, 6, 13), 50000, 10);
-        Material crispyFlour1 = new CrispyFlour(2, "bột đao", LocalDate.of(2023, 6, 20), 60000, 20);
-        Material crispyFlour2 = new CrispyFlour(3, "bột chiên xù", LocalDate.of(2023, 7, 5), 70000, 40);
-        Material crispyFlour3 = new CrispyFlour(4, "bột chiên giòn", LocalDate.of(2023, 5, 10), 80000, 50);
-        Material crispyFlour4 = new CrispyFlour(5, "bột gạo", LocalDate.of(2023, 5, 12), 90000, 30);
+        Material crispyFlour1 = new CrispyFlour(2, "bột đao", LocalDate.of(2022, 8, 20), 60000, 20);
+        Material crispyFlour2 = new CrispyFlour(3, "bột chiên xù", LocalDate.of(2021, 7, 5), 70000, 40);
+        Material crispyFlour3 = new CrispyFlour(4, "bột chiên giòn", LocalDate.of(2022, 9, 10), 80000, 50);
+        Material crispyFlour4 = new CrispyFlour(5, "bột gạo", LocalDate.of(2022, 12, 12), 90000, 30);
 
         Material meat = new Meat(6, "thịt chân giò", LocalDate.of(2023, 7, 12), 200000, 3);
         Material meat1 = new Meat(7, "thịt vai", LocalDate.of(2023, 7, 11), 200000, 3);
@@ -39,14 +39,11 @@ public class MainListTest {
         materialList.add(meat3);
         materialList.add(meat4);
 
-
-        System.out.println(crispyFlour.getManufacturingDate());
-        System.out.println(crispyFlour.getExpiryDate());
         int choie;
         int choie1;
         int choie2;
         int choie3;
-        double money =0;
+        double money = 0;
         do {
             System.out.println("Menu :");
             System.out.println("1. AddProduct :");
@@ -156,26 +153,23 @@ public class MainListTest {
                     }
                     break;
                 case 5:
-                    System.out.println("5. Discount");
-                    choie3 = Integer.parseInt(scanner.nextLine());
-                    switch (choie3) {
-                        case 1:
-                            System.out.println("CrispyFour");
-                            if (materialList instanceof CrispyFlour) {
-                               money += ((CrispyFlour) materialList).getRealMoney();
-                                System.out.println(money);
+                    System.out.println("5. Discount id :");
+                    id = Integer.parseInt(scanner.nextLine());
+                    for (int i = 0; i < materialList.size(); i++){
+                        if(materialList.get(i).getId()==id){
+                            if(materialList.get(i) instanceof  CrispyFlour){
+                                System.out.println( ((CrispyFlour) materialList.get(i)).getAmount());
+                                System.out.println( ((CrispyFlour) materialList.get(i)).getRealMoney());
                             }
-                            break;
-                        case 2:
-                            System.out.println("Meat");
-                            if(materialList instanceof Meat){
-                              money +=  ((Meat) materialList).getRealMoney();
-                                System.out.println(money);
+                            if (materialList.get(i) instanceof Meat){
+                                System.out.println(( (Meat) materialList.get(i)).getAmount());
+                                System.out.println(( (Meat) materialList.get(i)).getRealMoney());
                             }
-                            break;
+                        }
                     }
-                    break;
-                case 0:
+
+
+                        case 0:
                     System.exit(0);
             }
 

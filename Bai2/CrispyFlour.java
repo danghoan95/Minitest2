@@ -1,6 +1,7 @@
 package Bai2;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class CrispyFlour extends Material {
     private int quantity;
@@ -29,22 +30,24 @@ public class CrispyFlour extends Material {
 
     @Override
     public LocalDate getExpiryDate() {
-        LocalDate date = LocalDate.of(2023,5,10);
-        LocalDate newdate = date.plusYears(1);
-        setManufacturingDate(newdate);
+        setManufacturingDate(getManufacturingDate().plusYears(1));
         return getManufacturingDate();
     }
-    public double  getRealMoney() {
-        int day = getManufacturingDate().getDayOfMonth()-LocalDate.now().getDayOfMonth();
-        if (day <= 60) {
-            System.out.println("discountedPrice 40%");
-            return getCost()*60/100;
-        }else if(day <=120) {
+
+    public double getRealMoney() {
+        long mouth = ChronoUnit.MONTHS.between(LocalDate.now(),getExpiryDate());
+        if (mouth <= 2 && mouth >= 0) {
+            System.out.println("discounted Price 40%");
+            return getAmount() * 60 / 100;
+        } else if (mouth <= 4 && mouth > 2) {
             System.out.println("discountedPrice 20%");
-            return getCost()*80/100;
-        }else {
+            return getAmount() * 80 / 100;
+        } else if (mouth < 12 && mouth > 4) {
             System.out.println("discountedPrice 10%");
-            return getCost()*90/100;
+            return getAmount() * 90 / 100;
+        } else {
+            System.out.println("hết hạn sử dụng");
+            return 0;
         }
     }
 

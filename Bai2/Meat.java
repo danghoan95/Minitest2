@@ -1,6 +1,7 @@
 package Bai2;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Meat extends Material  {
     private double weight;
@@ -19,18 +20,17 @@ public class Meat extends Material  {
     }
 
     public LocalDate getExpiryDate() {
-        LocalDate date = LocalDate.of(2023,7,10);
-        LocalDate newDate = date.plusDays(7);
-        setManufacturingDate(newDate);
+
+        setManufacturingDate(getManufacturingDate().plusDays(7));
         return getManufacturingDate();
     }
 
     public double getRealMoney() {
-        int day = getManufacturingDate().getDayOfMonth()-LocalDate.now().getDayOfMonth();
+        long day = ChronoUnit.DAYS.between(LocalDate.now(), getExpiryDate());
         if (day<= 5) {
-           return getCost()* 70/100;
+           return getAmount()* 70/100;
         }else {
-            return getCost()*90/100;
+            return getAmount()*90/100;
         }
     }
 
